@@ -1,6 +1,7 @@
 package com.ds.my.www.common;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author dmitry shalygin on 1/18/2016.
@@ -9,12 +10,25 @@ public interface IPosition {
 
     PositionStatus getStatus();
 
-    void setStatus(PositionStatus status);
+    IPosition setStatus(PositionStatus status);
 
-    List<IPosition> getSubPositions();
+    Set<IPosition> getSubPositions();
+
+    IPosition addSubPosition(IPosition subPosition);
+
+    IPosition removeSubPosition(IPosition subPosition);
 
     String getDescription();
 
-    void setDescription(String description);
+    IPosition setDescription(String description);
+
+    Set<IPosition> getMustTakenBeforePositions();
+
+    IPosition addMustTakenBeforePosition(IPosition position);
+
+    IPosition removeMustTakenBeforePosition(IPosition position);
+
+    boolean isAtom();
+
 
 }
