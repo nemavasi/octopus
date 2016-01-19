@@ -1,5 +1,7 @@
 package com.ds.my.octopus.www.tests;
 
+import com.ds.my.octopus.www.common.IPosition;
+import com.ds.my.octopus.www.implementations.Position;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,4 +14,6 @@ public class PositionTest {
     public void testJUnit(){
         Assert.assertTrue(true);
     }
+
+
 }
