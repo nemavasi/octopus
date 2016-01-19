@@ -1,6 +1,5 @@
-package com.ds.my.www.common;
+package com.ds.my.octopus.www.common;
 
-import java.util.List;
 import java.util.Set;
 
 /**

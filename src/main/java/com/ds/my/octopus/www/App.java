@@ -1,4 +1,4 @@
-package com.ds.my.www;
+package com.ds.my.octopus.www;
 
 /**
  * Created by nemavasi on 18.01.16.
