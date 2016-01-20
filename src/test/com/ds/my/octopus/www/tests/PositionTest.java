@@ -11,12 +11,12 @@ import org.junit.Test;
 public class PositionTest {
 
     @Test
-    public void testJUnit(){
+    public void testJUnit() {
         Assert.assertTrue(true);
     }
 
     @Test
-    public void testEquals(){
+    public void testEquals() {
         Position p1 = new Position("Java");
         Position p2 = new Position("JaVa");
         Position p3 = new Position("JaVaSE");
@@ -25,12 +25,24 @@ public class PositionTest {
     }
 
     @Test
-    public void testHash(){
+    public void testHash() {
         Position p1 = new Position("Java");
         Position p2 = new Position("JaVa");
         Position p3 = new Position("JaVaSE");
-        Assert.assertTrue(p1.hashCode()==p2.hashCode());
-        Assert.assertFalse(p2.hashCode()==p3.hashCode());
+        Assert.assertTrue(p1.hashCode() == p2.hashCode());
+        Assert.assertFalse(p2.hashCode() == p3.hashCode());
+    }
+
+    @Test(expected = Exception.class)
+    public void testAddSubPosition() {
+        Position p1 = new Position("Java");
+        p1.addSubPosition(p1);
+    }
+
+    @Test(expected = Exception.class)
+    public void testAddMustTakenBeforePosition() {
+        Position p1 = new Position("Java");
+        p1.addMustTakenBeforePosition(p1);
     }
 
 
