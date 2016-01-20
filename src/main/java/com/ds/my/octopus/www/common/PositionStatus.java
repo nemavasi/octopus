@@ -7,5 +7,5 @@ public enum PositionStatus {
     PLANNED,
     TAKING,
     TAKEN,
-    PROTECTING
+    RECOVERY
 }
