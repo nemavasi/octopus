@@ -17,13 +17,23 @@ public class Position implements IPosition {
     private Set<IPosition> mustTakenBeforePositions;
     private String description;
 
-    public Position(String name){
-        this.name=name;
+    public Position(String name) {
+        this.name = name;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     public PositionStatus getStatus() {
         return status;
     }
+
 
     public Position setStatus(PositionStatus status) {
         this.status = status;
@@ -37,6 +47,10 @@ public class Position implements IPosition {
     public IPosition addSubPosition(IPosition subPosition) {
         if (subPosition == null) {
             throw new RuntimeException("Subposition is null!");
+        }
+
+        if (this.equals(subPosition)) {
+            throw new RuntimeException("This position == subposition");
         }
 
         if (subPositions == null) subPositions = new HashSet<IPosition>();
@@ -81,6 +95,10 @@ public class Position implements IPosition {
             throw new RuntimeException("Adding position is null!");
         }
 
+        if (this.equals(position)) {
+            throw new RuntimeException("This position == mustTaken position");
+        }
+
         if (mustTakenBeforePositions == null) mustTakenBeforePositions = new HashSet<IPosition>();
         mustTakenBeforePositions.add(position);
         return this;
@@ -106,8 +124,32 @@ public class Position implements IPosition {
         return this;
     }
 
-    public boolean isAtom(){
-        return subPositions==null;
+    public boolean isAtom() {
+        return subPositions == null;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+        if (this == obj) return true;
+        if (obj.getClass() != this.getClass()) return false;
+        Position pos = (Position) obj;
+        if (this.name.equalsIgnoreCase(pos.name)) return true;
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        int sumOfCharCodes = 0;
+        char[] symvols = name.toLowerCase().toCharArray();
+        for (char c : symvols) {
+            sumOfCharCodes += c;
+        }
+        result = prime * result + sumOfCharCodes;
+        return result;
+    }
 }

@@ -7,6 +7,10 @@ import java.util.Set;
  */
 public interface IPosition {
 
+    String getName();
+
+    void setName(String name);
+
     PositionStatus getStatus();
 
     IPosition setStatus(PositionStatus status);
