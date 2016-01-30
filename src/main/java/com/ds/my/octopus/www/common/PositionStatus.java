@@ -1,11 +1,11 @@
-package com.ds.my.www.common;
+package com.ds.my.octopus.www.common;
 
 /**
  * @author dmitry shalygin on 1/18/2016.
  */
 public enum PositionStatus {
-    TARGET,
+    PLANNED,
     TAKING,
-    USE,
+    TAKEN,
     RECOVERY
 }

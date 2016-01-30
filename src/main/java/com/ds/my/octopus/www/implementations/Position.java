@@ -1,27 +1,39 @@
-package com.ds.my.www.implementations;
+package com.ds.my.octopus.www.implementations;
 
-import com.ds.my.www.common.IPosition;
-import com.ds.my.www.common.PositionStatus;
+import com.ds.my.octopus.www.common.IPosition;
+import com.ds.my.octopus.www.common.PositionStatus;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * @author dmitry shalygin on 1/18/2016.
  */
 public class Position implements IPosition {
 
-    private final static Logger logger = Logger.getLogger(Position.class.getCanonicalName());
+    private String name;
     private PositionStatus status;
     private Set<IPosition> subPositions;
     private Set<IPosition> mustTakenBeforePositions;
     private String description;
 
+    public Position(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
     public PositionStatus getStatus() {
         return status;
     }
+
 
     public Position setStatus(PositionStatus status) {
         this.status = status;
@@ -34,8 +46,11 @@ public class Position implements IPosition {
 
     public IPosition addSubPosition(IPosition subPosition) {
         if (subPosition == null) {
-            logger.info("Subposition is null!");
-            return this;
+            throw new RuntimeException("Subposition is null!");
+        }
+
+        if (this.equals(subPosition)) {
+            throw new RuntimeException("This position == subposition");
         }
 
         if (subPositions == null) subPositions = new HashSet<IPosition>();
@@ -45,17 +60,14 @@ public class Position implements IPosition {
 
     public IPosition removeSubPosition(IPosition subPosition) {
         if (subPosition == null) {
-            logger.info("Subposition is null!");
-            return this;
+            throw new RuntimeException("Subposition is null!");
         }
 
         if (subPositions == null) {
-            logger.info("Set of the subPositions is null!");
-            return this;
+            throw new RuntimeException("Set of the subpositions is null!");
         }
         if (!subPositions.contains(subPosition)) {
-            logger.info("Subposition is not in the set!");
-            return this;
+            throw new RuntimeException("Set of the subpositions does not contain this subposition!");
         }
         subPositions.remove(subPosition);
         if (subPositions.size() == 0) {
@@ -80,8 +92,11 @@ public class Position implements IPosition {
 
     public IPosition addMustTakenBeforePosition(IPosition position) {
         if (position == null) {
-            logger.info("Subposition is null!");
-            return this;
+            throw new RuntimeException("Adding position is null!");
+        }
+
+        if (this.equals(position)) {
+            throw new RuntimeException("This position == mustTaken position");
         }
 
         if (mustTakenBeforePositions == null) mustTakenBeforePositions = new HashSet<IPosition>();
@@ -91,17 +106,15 @@ public class Position implements IPosition {
 
     public IPosition removeMustTakenBeforePosition(IPosition position) {
         if (position == null) {
-            logger.info("Position is null!");
-            return this;
+            throw new RuntimeException("Removing position is null!");
         }
 
         if (mustTakenBeforePositions == null) {
-            logger.info("Set of the mustTakenBeforePositions is null!");
-            return this;
+            throw new RuntimeException("Set of the mustTakenBeforePositions is null!");
+
         }
         if (!mustTakenBeforePositions.contains(position)) {
-            logger.info("Position is not in the set!");
-            return this;
+            throw new RuntimeException("Set of the mustTakenBeforePositions does not contain this position!");
         }
         mustTakenBeforePositions.remove(position);
         if (mustTakenBeforePositions.size() == 0) {
@@ -111,8 +124,32 @@ public class Position implements IPosition {
         return this;
     }
 
-    public boolean isAtom(){
-        return subPositions==null;
+    public boolean isAtom() {
+        return subPositions == null;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == null) return false;
+        if (this == obj) return true;
+        if (obj.getClass() != this.getClass()) return false;
+        Position pos = (Position) obj;
+        if (this.name.equalsIgnoreCase(pos.name)) return true;
+
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        int sumOfCharCodes = 0;
+        char[] symvols = name.toLowerCase().toCharArray();
+        for (char c : symvols) {
+            sumOfCharCodes += c;
+        }
+        result = prime * result + sumOfCharCodes;
+        return result;
+    }
 }
