@@ -5,7 +5,13 @@ import java.util.Set;
 /**
  * @author dmitry shalygin on 1/19/2016.
  */
-public interface IPositionCatalog {
+public interface IPositionsCatalog {
 
     Set<IPosition> getPositions();
+
+    IPosition createPosition(String code);
+
+    IPosition getPositionByCode(String code);
+
+
 }

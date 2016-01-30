@@ -11,22 +11,22 @@ import java.util.Set;
  */
 public class Position implements IPosition {
 
-    private String name;
+    private String code;
     private PositionStatus status;
     private Set<IPosition> subPositions;
     private Set<IPosition> mustTakenBeforePositions;
     private String description;
 
-    public Position(String name) {
-        this.name = name;
+    public Position(String code) {
+        this.code = code;
     }
 
-    public String getName() {
-        return name;
+    public String getCode() {
+        return code;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCode(String code) {
+        this.code = code;
     }
 
 
@@ -135,7 +135,7 @@ public class Position implements IPosition {
         if (this == obj) return true;
         if (obj.getClass() != this.getClass()) return false;
         Position pos = (Position) obj;
-        if (this.name.equalsIgnoreCase(pos.name)) return true;
+        if (this.code.equalsIgnoreCase(pos.code)) return true;
 
         return false;
     }
@@ -145,7 +145,7 @@ public class Position implements IPosition {
         final int prime = 31;
         int result = 1;
         int sumOfCharCodes = 0;
-        char[] symvols = name.toLowerCase().toCharArray();
+        char[] symvols = code.toLowerCase().toCharArray();
         for (char c : symvols) {
             sumOfCharCodes += c;
         }
